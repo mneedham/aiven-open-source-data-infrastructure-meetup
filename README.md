@@ -103,6 +103,7 @@ https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
 ### Exploring the stream
 
 ```bash
+cd demo2
 docker-compose up
 ```
 

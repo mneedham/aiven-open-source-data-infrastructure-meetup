@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<clickhouse>
+	<prompt_by_server_display_name>
+		<default>:) </default>
+	</prompt_by_server_display_name>
+</clickhouse>

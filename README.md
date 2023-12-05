@@ -96,7 +96,9 @@ limit 10
 Format Vertical;
 ```
 
-## Demo 1: Wikimedia 
+## Demo 2: Wikimedia Recent Changes
+
+https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
 
 ### Exploring the stream
 

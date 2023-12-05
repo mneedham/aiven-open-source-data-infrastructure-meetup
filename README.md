@@ -13,7 +13,7 @@ curl https://clickhouse.com/ | sh
 ```
 
 ```bash
-./clickhouse local -m
+./clickhouse local -m --path aiven.chdb
 ```
 
 ## Demo 1: Mid Journey Metadata

@@ -89,10 +89,19 @@ select
 ```sql
 FROM file(midJourneyLocal('0000{00..55}.parquet'), Parquet)
 select
-    url, content, formatReadableSize(size) 
+    url, content, formatReadableSize(size)
 order by size desc 
 limit 10 
 Format Vertical;
+```
+
+```sql
+REATE TABLE images
+ENGINE = MergeTree
+ORDER BY size AS
+FROM file(midJourneyLocal('0000{00..55}.parquet'), Parquet)
+select * replace(parseDateTime32BestEffort(timestamp) AS timestamp)
+SETTINGS schema_inference_make_columns_nullable=0;
 ```
 
 ## Demo 2: Wikimedia Recent Changes

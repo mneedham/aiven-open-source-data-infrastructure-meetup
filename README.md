@@ -36,7 +36,7 @@ files -> 'https://huggingface.co/datasets/vivym/midjourney-messages/resolve/main
 
 ```sql
 CREATE OR REPLACE FUNCTION midJourneyLocal AS 
-files -> 'demo1/' || files;
+files -> 'demo1/data/' || files;
 ```
 
 
@@ -67,7 +67,6 @@ FROM file(midJourneyLocal('000000.parquet'), ParquetMetadata)
 ARRAY JOIN columns AS col
 SELECT col.name, col.physical_type, col.logical_type;
 ```
-
 
 ### Query the data
 
@@ -186,24 +185,39 @@ FROM wiki select * LIMIT 1 Format Vertical;
 
 ```sql
 FROM wiki
-SELECT user, COUNT(*) AS updates
-GROUP BY user
+SELECT user, bot, COUNT(*) AS updates
+GROUP BY ALL
 ORDER BY updates DESC
 LIMIT 10;
 ```
 
 ```sql
-WITH users AS (
-    SELECT user, COUNT(*) AS updates
+WITH counts AS (
+    SELECT user AS field, COUNT(*) AS updates
     FROM wiki
     GROUP BY user
     ORDER BY updates DESC
 )
 SELECT
-    user,
+    field,
     updates,
-    bar(updates, 0, (SELECT max(updates) FROM users), 30) AS plot
-FROM users
+    bar(updates, 0, (SELECT max(updates) FROM counts), 30) AS plot
+FROM counts
+LIMIT 10;
+```
+
+```sql
+WITH counts AS (
+    SELECT server_name AS field, COUNT(*) AS updates
+    FROM wiki
+    GROUP BY field
+    ORDER BY updates DESC
+)
+SELECT
+    field,
+    updates,
+    bar(updates, 0, (SELECT max(updates) FROM counts), 30) AS plot
+FROM counts
 LIMIT 10;
 ```
 
